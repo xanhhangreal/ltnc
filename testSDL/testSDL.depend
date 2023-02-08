@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1675771142 source:d:\github\ltnc\testsdl\main.cpp
+	<iostream>
+	<SDL.h>
+
