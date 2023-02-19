@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1676661131 source:d:\github\ltnc\daovang\main.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+

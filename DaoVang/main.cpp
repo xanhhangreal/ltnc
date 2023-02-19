@@ -1,10 +1,11 @@
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
 
 using namespace std;
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
-const string WINDOW_TITLE = "An Implementation of Code.org Painter";
+const string WINDOW_TITLE = "Dao Vang";
 
 void initSDL(SDL_Window* &window, SDL_Renderer* &renderer);
 
@@ -13,33 +14,45 @@ void logSDLError(std::ostream& os,
 void quitSDL(SDL_Window* window, SDL_Renderer* renderer);
 
 void waitUntilKeyPressed();
+SDL_Texture* loadTexture(string path, SDL_Renderer* renderer);
+/// Lấy đường dẫn file ảnh "path", renderer
+
 int main(int argc, char* argv[]){
     SDL_Window* window;
     SDL_Renderer* renderer;
-    initSDL(window, renderer);
+    initSDL( window, renderer );
 
     // Your drawing code here
     // use SDL_RenderPresent(renderer) to show it
-    SDL_RenderClear(renderer);
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderDrawLine(renderer, 100, 100, 200, 200);
-
-    SDL_RenderPresent(renderer);
+    SDL_Texture* background = loadTexture( "ingame.png", renderer );
+    SDL_RenderCopy( renderer, background, NULL, NULL );
+    SDL_RenderPresent( renderer );
     waitUntilKeyPressed();
 
-    SDL_Rect filledRect;
-    filledRect.x = 150;
-    filledRect.y = 150;
-    filledRect.h = 100;
-    filledRect.w = 150;
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-    SDL_RenderFillRect(renderer, &filledRect);
+    SDL_Texture* spongesBob = loadTexture( "ingame2.jpg", renderer );
+    SDL_RenderCopy( renderer, spongesBob, NULL, NULL );
 
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent( renderer );
 
     waitUntilKeyPressed();
-    quitSDL(window, renderer);
+    quitSDL( window, renderer );
     return 0;
+}
+
+SDL_Texture* loadTexture(string path, SDL_Renderer* renderer){
+    SDL_Texture* newTexture = nullptr; /// Lưu lại địa chỉ của Texture được tạo ra
+    SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+    if( loadedSurface == nullptr )
+        cout << "Unable to load image " << path << " SDL_image Error: "
+             << IMG_GetError() << endl;
+    else {
+        newTexture = SDL_CreateTextureFromSurface( renderer, loadedSurface );
+        if( newTexture == nullptr )
+            cout << "Unable to create texture from " << path << " SDL Error: "
+                 << SDL_GetError() << endl;
+        SDL_FreeSurface( loadedSurface );
+    }
+    return newTexture;
 }
 void logSDLError(std::ostream& os,
                  const std::string &msg, bool fatal){
