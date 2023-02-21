@@ -21,20 +21,15 @@ int main(int argc, char* argv[]){
     // Your drawing code here
     // use SDL_RenderPresent(renderer) to show it
     SDL_RenderClear(renderer);
+
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderDrawLine(renderer, 100, 100, 200, 200);
-
-    SDL_RenderPresent(renderer);
-    waitUntilKeyPressed();
-
+    SDL_RenderDrawLine(renderer, 0, 0, 1000, 1000);
     SDL_Rect filledRect;
     filledRect.x = 150;
     filledRect.y = 150;
     filledRect.h = 100;
     filledRect.w = 150;
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
     SDL_RenderFillRect(renderer, &filledRect);
-
     SDL_RenderPresent(renderer);
 
     waitUntilKeyPressed();
