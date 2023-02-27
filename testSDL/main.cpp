@@ -31,6 +31,7 @@ int main(int argc, char* argv[]){
     filledRect.w = 150;
     SDL_RenderFillRect(renderer, &filledRect);
     SDL_RenderPresent(renderer);
+    cout << "?";
 
     waitUntilKeyPressed();
     quitSDL(window, renderer);
