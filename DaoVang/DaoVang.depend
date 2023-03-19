@@ -4,7 +4,18 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1678841449 source:d:\game c++\ltnc\daovang\main.cpp
+1679263690 source:d:\game c++\ltnc\daovang\main.cpp
+	<iostream>
 	<SDL.h>
-	<stdio.h>
+	<SDL_image.h>
+	"SDL_utils.h"
+	"SDL_init.h"
+
+1679263222 d:\game c++\ltnc\daovang\sdl_utils.h
+	<iostream>
+	<SDL.h>
+
+1679263272 d:\game c++\ltnc\daovang\sdl_init.h
+	<iostream>
+	<SDL.h>
 
