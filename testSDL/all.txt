@@ -1,0 +1,16 @@
+void Pic_Event(){
+    SDL_Event e;
+    while (true) {
+        if ( SDL_WaitEvent(&e) == 0 ) SDL_Delay(100);
+        else if (e.type == SDL_QUIT) break;
+        else if (e.type == SDL_KEYDOWN){
+            //cerr << "_" << SDL_GetKeyName(e.key.keysym.sym) << "_" << endl;
+            switch (e.key.keysym.sym){
+                case SDLK_UP: cerr << "UP" << '\n'; break;
+                case SDLK_DOWN: cerr << "DOWN" << '\n'; break;
+                case SDLK_LEFT: cerr << "LEFT" << '\n'; break;
+                case SDLK_RIGHT: cerr << "RIGHT" << '\n'; break;
+            }
+        }
+    }
+}

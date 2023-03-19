@@ -16,25 +16,56 @@ void quitSDL(SDL_Window* window, SDL_Renderer* renderer);
 void waitUntilKeyPressed();
 SDL_Texture* loadTexture(string path, SDL_Renderer* renderer);
 /// Lấy đường dẫn file ảnh "path", renderer
-
+void draw(SDL_Renderer* renderer, int x, int y){
+    SDL_Rect rect;
+    const int Rect_Size = 10;
+    rect.x = x;
+    rect.y = y;
+    rect.h = Rect_Size;
+    rect.w = Rect_Size;
+    SDL_SetRenderDrawColor(renderer, 255, 255 , 0, 0);
+    SDL_RenderDrawRect(renderer, &rect);
+}
+void Pic_Event(SDL_Renderer* renderer){
+    int step = 5;
+    int x = SCREEN_WIDTH/2;
+    int y = SCREEN_HEIGHT/2;
+    SDL_Event e;
+    while (true) {
+        if ( SDL_WaitEvent(&e) == 0 ) SDL_Delay(100);
+        else if (e.type == SDL_QUIT) break;
+        else if (e.type == SDL_KEYDOWN){
+            cerr << "_" << SDL_GetKeyName(e.key.keysym.sym) << "_" << endl;
+            switch (e.key.keysym.sym){
+                //case SDLK_SPACE:
+                case SDLK_DOWN: y += step; break;
+                case SDLK_UP: y -= step; break;
+                case SDLK_LEFT: x -= step; break;
+                case SDLK_RIGHT: x += step; break;
+            }
+        }
+        draw(renderer, x, y);
+        SDL_RenderPresent( renderer );
+    }
+}
 int main(int argc, char* argv[]){
     SDL_Window* window;
     SDL_Renderer* renderer;
     initSDL( window, renderer );
 
-    // Your drawing code here
-    // use SDL_RenderPresent(renderer) to show it
-    SDL_Texture* background = loadTexture( "ingame.png", renderer );
-    SDL_RenderCopy( renderer, background, NULL, NULL );
-    SDL_RenderPresent( renderer );
+//     Your drawing code here
+//     use SDL_RenderPresent(renderer) to show it
+//    SDL_Texture* background = loadTexture( "ingame.png", renderer );
+//    SDL_RenderCopy( renderer, background, NULL, NULL );
+//    SDL_RenderPresent( renderer );
+//    waitUntilKeyPressed();
+    Pic_Event(renderer);
+//    SDL_Texture* spongesBob = loadTexture( "ingame2.jpg", renderer );
+//    SDL_RenderCopy( renderer, spongesBob, NULL, NULL );
+//    SDL_RenderPresent( renderer );
+//
     waitUntilKeyPressed();
 
-    SDL_Texture* spongesBob = loadTexture( "ingame2.jpg", renderer );
-    SDL_RenderCopy( renderer, spongesBob, NULL, NULL );
-
-    SDL_RenderPresent( renderer );
-
-    waitUntilKeyPressed();
     quitSDL( window, renderer );
     return 0;
 }
