@@ -1,19 +1,20 @@
-#include <iostream>
-#include <SDL.h>
-#include <SDL_image.h>
-#include "SDL_init.h" /// sửa tên, chiều dài và chiều rộng của cửa sổ
+#include "Common_Function.h"
+#include "BaseObject.h"
 #include "SDL_utils.h" /// những câu lệnh cơ bản
+
 
 using namespace std;
 
-void Pic_Event(SDL_Renderer* renderer){
-    SDL_Event e;
+void PlayGame(){
+
+}
+void Pic_Event(){
     while (true) {
-        if ( SDL_WaitEvent(&e) == 0 ) SDL_Delay(100);
-        else if (e.type == SDL_QUIT) break;
-        else if (e.type == SDL_KEYDOWN){
-            cerr << "_" << SDL_GetKeyName(e.key.keysym.sym) << "_\n";
-            switch (e.key.keysym.sym){
+        if ( SDL_WaitEvent(&g_event) == 0 ) SDL_Delay(100);
+        else if (g_event.type == SDL_QUIT) break;
+        else if (g_event.type == SDL_KEYDOWN){
+            cerr << "_" << SDL_GetKeyName(g_event.key.keysym.sym) << "_\n";
+            switch (g_event.key.keysym.sym){
                 case SDLK_SPACE:
                 case SDLK_DOWN: {
                     cerr << "Keo\n";
@@ -23,22 +24,19 @@ void Pic_Event(SDL_Renderer* renderer){
         }
     }
 }
-void Solve(SDL_Window* window, SDL_Renderer* renderer){
+void Solve(){
 
 //     Your drawing code here
 //     use SDL_RenderPresent(renderer) to show it
-    PlayGame(window, renderer);
-    Pic_Event(renderer);
+    PlayGame();
+    Pic_Event();
     waitUntilKeyPressed();
 }
 int main(int argc, char* argv[]){
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    initSDL( window, renderer );
-    Solve( window, renderer );
-    quitSDL( window, renderer );
+    initSDL();
+    Solve();
+    quitSDL();
     return 0;
 }
-
 
 

@@ -4,18 +4,50 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1679263690 source:d:\game c++\ltnc\daovang\main.cpp
+1679352909 source:d:\game c++\ltnc\daovang\main.cpp
+	"Common_Function.h"
+	"BaseObject.h"
+	"SDL_utils.h"
+
+1679353406 d:\game c++\ltnc\daovang\sdl_utils.h
+	"Common_Function.h"
+
+1679341844 d:\game c++\ltnc\daovang\sdl_init.h
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
-	"SDL_utils.h"
-	"SDL_init.h"
+	<SDL_ttf.h>
 
-1679263222 d:\game c++\ltnc\daovang\sdl_utils.h
-	<iostream>
-	<SDL.h>
+1679344389 d:\game c++\ltnc\daovang\hamtudat.h
+	"TextObject.h"
 
-1679263272 d:\game c++\ltnc\daovang\sdl_init.h
-	<iostream>
+1679344389 d:\game c++\ltnc\daovang\textobject.h
+	<bits/stdc++.h>
 	<SDL.h>
+	<SDL_ttf.h>
+
+1679353405 source:d:\game c++\ltnc\daovang\common_function.cpp
+	"Common_Function.h"
+
+1679353468 d:\game c++\ltnc\daovang\common_function.h
+	<iostream>
+	<windows.h>
+	<string>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
+
+1679351966 source:d:\game c++\ltnc\daovang\baseobject.cpp
+	"BaseObject.h"
+
+1679351521 d:\game c++\ltnc\daovang\baseobject.h
+	"Common_Function.h"
+
+1679346982 source:d:\game c++\ltnc\daovang\mainobject.cpp
+	"MainObject.h"
+
+1679346982 d:\game c++\ltnc\daovang\mainobject.h
+	"Common_Function.h"
+	"BaseObject.h"
 
