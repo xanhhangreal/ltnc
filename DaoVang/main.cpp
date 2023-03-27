@@ -1,6 +1,6 @@
 #include "Common_Function.h"
 #include "BaseObject.h"
-#include "SDL_utils.h" /// những câu lệnh cơ bản
+#include "SDL_utils.h"
 
 
 using namespace std;
