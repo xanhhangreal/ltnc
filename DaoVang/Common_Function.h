@@ -20,10 +20,6 @@ const int SCREEN_HEIGHT = 640;
 const std::string WINDOW_TITLE = "Đào vàng";
 const int SCREEN_BPP = 32;
 
-void logSDLError(std::ostream& os,
-                 const std::string &msg, bool fatal);
-void quitSDL();
-void waitUntilKeyPressed();
-void initSDL();
+
 
 #endif // COMMON_FUNCTION_H_

@@ -1,36 +1,38 @@
 #include "Common_Function.h"
 #include "BaseObject.h"
 #include "SDL_utils.h"
-
+#include "LuoiCau.h"
+#include "MainObject.h"
 
 using namespace std;
 
-void PlayGame(){
+void Solve()
+{
 
-}
-void Pic_Event(){
-    while (true) {
-        if ( SDL_WaitEvent(&g_event) == 0 ) SDL_Delay(100);
-        else if (g_event.type == SDL_QUIT) break;
-        else if (g_event.type == SDL_KEYDOWN){
-            cerr << "_" << SDL_GetKeyName(g_event.key.keysym.sym) << "_\n";
-            switch (g_event.key.keysym.sym){
-                case SDLK_SPACE:
-                case SDLK_DOWN: {
-                    cerr << "Keo\n";
-                    /// xử lí móc câu kéo xuống
-                } break;
+    //PlayGame();
+    //Pic_Event();
+    MainObject p_player;
+    p_player.LoadImg("Textures/img_obj1.png", g_screen);
+
+    bool is_quit = false;
+    while(!is_quit)
+    {
+        while(SDL_PollEvent(&g_event) != 0)
+        {
+            if(g_event.type == SDL_QUIT)
+            {
+                is_quit = true;
+                break;
             }
+            p_player.HandleInputAction(g_event, g_screen);
         }
-    }
-}
-void Solve(){
+        SDL_SetRenderDrawColor(g_screen, 0, 0, 0, 0);
+        SDL_RenderClear(g_screen);
 
-//     Your drawing code here
-//     use SDL_RenderPresent(renderer) to show it
-    PlayGame();
-    Pic_Event();
-    waitUntilKeyPressed();
+        p_player.Show(g_screen);
+
+        SDL_RenderPresent(g_screen);
+    }
 }
 int main(int argc, char* argv[]){
     initSDL();

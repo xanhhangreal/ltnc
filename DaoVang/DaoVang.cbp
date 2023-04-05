@@ -36,6 +36,11 @@
 		<Unit filename="BaseObject.h" />
 		<Unit filename="Common_Function.cpp" />
 		<Unit filename="Common_Function.h" />
+		<Unit filename="LuoiCau.cpp" />
+		<Unit filename="LuoiCau.h" />
+		<Unit filename="MainObject.cpp" />
+		<Unit filename="MainObject.h" />
+		<Unit filename="SDL_utils.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
