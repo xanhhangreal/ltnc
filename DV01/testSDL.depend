@@ -1,0 +1,42 @@
+# depslib dependency file v1.0
+1676658860 source:d:\github\ltnc\testsdl\main.cpp
+	<iostream>
+	<SDL.h>
+
+1680676251 source:d:\game c++\ltnc\testsdl\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_timer.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	"common.h"
+	"gamemain.h"
+	"main.h"
+
+1680676238 source:d:\game c++\ltnc\testsdl\gamemain.cpp
+	<stdlib.h>
+	<stdio.h>
+	<SDL.h>
+	<SDL_ttf.h>
+	<math.h>
+	"common.h"
+	"gamemain.h"
+	"resProperties.h"
+
+1680676389 d:\game c++\ltnc\testsdl\common.h
+	<SDL.h>
+
+1680676247 d:\game c++\ltnc\testsdl\gamemain.h
+	<SDL.h>
+	"common.h"
+
+1680676365 d:\game c++\ltnc\testsdl\resproperties.h
+
+1680676164 d:\game c++\ltnc\testsdl\main.h
+
+1680676353 source:d:\game c++\ltnc\testsdl\resproperties.cpp
+	"common.h"
+	"resProperties.h"
+

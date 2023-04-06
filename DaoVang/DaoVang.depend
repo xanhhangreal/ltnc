@@ -4,14 +4,12 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1680659007 source:d:\game c++\ltnc\daovang\main.cpp
+1680770086 source:d:\game c++\ltnc\daovang\main.cpp
 	"Common_Function.h"
 	"BaseObject.h"
 	"SDL_utils.h"
-	"LuoiCau.h"
-	"MainObject.h"
 
-1679957595 d:\game c++\ltnc\daovang\sdl_utils.h
+1680770061 d:\game c++\ltnc\daovang\sdl_utils.h
 	"Common_Function.h"
 
 1679341844 d:\game c++\ltnc\daovang\sdl_init.h
@@ -28,13 +26,11 @@
 	<SDL.h>
 	<SDL_ttf.h>
 
-1679957596 source:d:\game c++\ltnc\daovang\common_function.cpp
+1680770061 source:d:\game c++\ltnc\daovang\common_function.cpp
 	"Common_Function.h"
 
-1679957596 d:\game c++\ltnc\daovang\common_function.h
-	<iostream>
-	<windows.h>
-	<string>
+1680770127 d:\game c++\ltnc\daovang\common_function.h
+	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
@@ -43,10 +39,10 @@
 1680017163 source:d:\game c++\ltnc\daovang\baseobject.cpp
 	"BaseObject.h"
 
-1679960872 d:\game c++\ltnc\daovang\baseobject.h
+1680764435 d:\game c++\ltnc\daovang\baseobject.h
 	"Common_Function.h"
 
-1680659519 source:d:\game c++\ltnc\daovang\mainobject.cpp
+1680678369 source:d:\game c++\ltnc\daovang\mainobject.cpp
 	"MainObject.h"
 
 1680657146 d:\game c++\ltnc\daovang\mainobject.h

@@ -31,11 +31,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="common.h" />
+		<Unit filename="gamemain.cpp" />
+		<Unit filename="gamemain.h" />
 		<Unit filename="main.cpp" />
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
+		<Unit filename="main.h" />
+		<Unit filename="resProperties.cpp" />
+		<Unit filename="resProperties.h" />
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

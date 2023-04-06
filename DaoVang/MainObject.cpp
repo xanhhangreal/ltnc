@@ -48,7 +48,7 @@ void MainObject::Show(SDL_Renderer* des)
     else if(status_ == 0) /// Thả câu
     {
         LoadImg("Textures/img_obj2.png", des);
-        LoadImg("Textures/img_obj3.png", des);
+        LoadImg("Text ures/img_obj3.png", des);
         LoadImg("Textures/img_obj4.png", des);
         LoadImg("Textures/img_obj5.png", des);
         LoadImg("Textures/img_obj6.png", des);
@@ -84,7 +84,7 @@ void MainObject::Show(SDL_Renderer* des)
         SDL_RenderPresent(des);
         SDL_Delay(100);
     }
-    size_Object = 1;
+    size_Object = 0;
 }
 
 void MainObject::HandleInputAction(SDL_Event events, SDL_Renderer* screen)

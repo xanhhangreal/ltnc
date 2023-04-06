@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1676658860 source:d:\github\ltnc\testsdl\main.cpp
-	<iostream>
-	<SDL.h>
-
-1679957135 source:d:\game c++\ltnc\testsdl\main.cpp
-	<SDL.h>
-

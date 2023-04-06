@@ -1,5 +1,5 @@
-#ifndef SDL_UTILS.H
-#define SDL_UTILS.H
+#ifndef SDL_UTILS_H_
+#define SDL_UTILS_H_H
 #include "Common_Function.h"
 
 void logSDLError(std::ostream& os,
@@ -18,6 +18,7 @@ void quitSDL()
 	SDL_DestroyWindow(g_window);
 	g_window = NULL;
 
+	Mix_CloseAudio();
 	IMG_Quit();
 	SDL_Quit();
 }
@@ -52,6 +53,20 @@ void initSDL()
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
     SDL_RenderSetLogicalSize(g_screen, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+
+	if(IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) < 0) {
+		printf("SDL image initialize failed! %s\n", IMG_GetError());
+	}
+
+	if(TTF_Init() == -1) {
+		printf("SDL ttf initialize failed! %s\n", TTF_GetError());
+	}
+
+	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+		printf("SDL_mixer could not initialize! %s\n", Mix_GetError());
+	}
 }
+
 
 #endif // SDL_UTILS.H
