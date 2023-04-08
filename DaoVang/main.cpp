@@ -1,5 +1,8 @@
+#include "Data.h"
 #include "Common_Function.h"
 #include "BaseObject.h"
+#include "TextObject.h"
+#include "gameMain.h"
 #include "SDL_utils.h"
 using namespace std;
 
@@ -21,10 +24,10 @@ bool readyAnimation()
 	Uint32 startTime;
 	bool status = false;
 
-	mouseIn = Mix_LoadWAV("Sounds/mouseIn.wav");
-	light.LoadImg("Textures/light.png", g_screen);
-	startBg.LoadImg("Textures/startBg.jpg", g_screen);
-	startButton.LoadImg("Textures/startButton.png", g_screen);
+	mouseIn = Mix_LoadWAV(sodFile[ID_MOUSEIN]);
+	light.LoadImg(imgFile[ID_LIGHT], g_screen);
+	startBg.LoadImg(imgFile[ID_STARTBG], g_screen);
+	startButton.LoadImg(imgFile[ID_STARTBUTTON], g_screen);
 
 	buttonClip[0].x = 0;
 	buttonClip[0].y = 0;
@@ -101,25 +104,126 @@ bool readyAnimation()
     return status;
 }
 
-TTF_Font* gameFont = NULL;
-SDL_Color fontColor = { 0x21, 0xd0, 0x1d};
-int userGrade = 0;
+void destroyLevel(levelInfo* lvl)
+{
+	free(lvl->reses);
+	free(lvl);
+	lvl = NULL;
+}
+unsigned int getNumDigit(int num)
+{
+    if(!num) return 1;
+    unsigned int Count = 0;
+    while(num)
+    {
+        num /= 10;
+        Count++;
+    }
+    return Count;
+}
+void setGoal(int goal)
+{
+    bool running = true;
+    char goalString[10];
+    BaseObject goalDia, goalBg;
+    SDL_Texture* goalGrade;
+    SDL_Rect textRect;
+    unsigned int frames = 0;
 
+    goalBg.LoadImg("Textures/goalBg.png", g_screen);
+    goalDia.LoadImg("Textures/goalDia.png", g_screen);
+
+    goalString[0] = '$';
+    SDL_itoa(goal, &goalString[1], 10);
+    goalGrade = loadRenderText(goalString, BLACK_TEXT);
+
+	textRect.x = 10;//SCREEN_WIDTH / 2;
+	textRect.y = 10;//SCREEN_HEIGHT / 2 - 30;
+	textRect.w = 20 * (getNumDigit(goal) + 1);
+	textRect.h = 70;
+
+    goalDia.SetRect(SCREEN_WIDTH/2 - 320, SCREEN_HEIGHT/2 - 180, 640, 340);
+
+//    while(running)
+//    {
+//        while(SDL_PollEvent(&g_event))
+//            running = (g_event.type == SDL_QUIT);
+//
+//        SDL_RenderClear(g_screen);
+//        goalBg.Render(g_screen, NULL);
+//        //goalDia.Render(g_screen, NULL);
+//        SDL_RenderCopy(g_screen, goalGrade, NULL, &textRect);
+//        SDL_RenderPresent(g_screen);
+//
+//
+//        if(++frames >= FPS) running = false;
+//
+//    }
+    SDL_RenderCopy(g_screen, goalGrade, NULL, &textRect);
+        SDL_RenderPresent(g_screen);
+    if(goalGrade == NULL) cout << "?";
+    waitUntilKeyPressed();
+    goalBg.Free();
+    goalDia.Free();
+    SDL_DestroyTexture(goalGrade);
+}
+levelInfo* getLevel(int lvl)
+{
+    if(lvl == 1)
+    {
+        levelInfo* currentLvl = (levelInfo *)malloc(sizeof(levelInfo));
+        currentLvl->level = lvl;
+        currentLvl->levelGoal = 650;
+        currentLvl->totalRes = 2;
+
+        resPos* res = (resPos* )malloc(sizeof(resPos) * currentLvl->totalRes);
+        res[0].id = ID_BSTONE;
+        res[0].position.x = 600; res[0].position.y = 300;
+        res[1].id = ID_DIAMOND;
+        res[1].position.x = 100; res[1].position.y = 400;
+
+        currentLvl->reses = res;
+        return currentLvl;
+    }
+    return NULL;
+}
+void gameOver(bool win)
+{
+    if(win == true) std::cout << "You Win " << userGrade;
+    else std::cout << "You Lost " << userGrade;
+}
 void startGame()
 {
-    int lvlNum = 1;
+    int lvlNum = 0;
 	bool win = false;
-	//levelInfo* lvl = NULL;
-	gameFont = TTF_OpenFont("VTIMESI.TTF", 40);
+	levelInfo* lvl = NULL;
+
+    while(true)
+    {
+        lvl = getLevel(++lvlNum);
+        if(lvl == NULL)
+        {
+            win = true;
+            gameOver(win);
+            break;
+        }
+        setGoal(lvl->levelGoal);
+        if(gameMain(lvl) <= lvl->levelGoal)
+        {
+            gameOver(win);
+            break;
+        }
+        destroyLevel(lvl);
+    }
 }
 int main(int argc, char* argv[]){
     initSDL();
 
     SDL_Surface* icon = IMG_Load("Textures/icon.png");
     SDL_SetWindowIcon(g_window, icon);
-    if(readyAnimation()) return 0;
-    else startGame();
-
+    //if(!readyAnimation()) return 0;
+    //else
+    startGame();
     SDL_FreeSurface(icon);
     quitSDL();
     return 0;

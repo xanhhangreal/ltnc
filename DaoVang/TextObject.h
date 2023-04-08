@@ -1,8 +1,6 @@
 #ifndef TEXT_OBJECT_H_
 #define TEXT_OBJECT_H_
-#include <bits/stdc++.h>
-#include <SDL.h>
-#include <SDL_ttf.h>
+#include "Common_Function.h"
 
 using namespace std;
 
@@ -43,10 +41,10 @@ public:
             text_color = color;
         }
     }
-    void CreateText(TTF_Font* font, SDL_Surface* des)
+    void CreateText(TTF_Font* font, SDL_Texture* des)
     {
-//        des = TTF_RenderText_Solid(font, str_val.c_str(), text_color);
-//        Show(des);
+        SDL_Surface* textSurface = TTF_RenderText_Solid(font, str_val.c_str(), text_color);
+
     }
 
 private:

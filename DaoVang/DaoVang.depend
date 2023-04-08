@@ -4,9 +4,12 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1680770086 source:d:\game c++\ltnc\daovang\main.cpp
+1680894822 source:d:\game c++\ltnc\daovang\main.cpp
+	"Data.h"
 	"Common_Function.h"
 	"BaseObject.h"
+	"TextObject.h"
+	"gameMain.h"
 	"SDL_utils.h"
 
 1680770061 d:\game c++\ltnc\daovang\sdl_utils.h
@@ -21,15 +24,13 @@
 1679344389 d:\game c++\ltnc\daovang\hamtudat.h
 	"TextObject.h"
 
-1679344389 d:\game c++\ltnc\daovang\textobject.h
-	<bits/stdc++.h>
-	<SDL.h>
-	<SDL_ttf.h>
+1680829763 d:\game c++\ltnc\daovang\textobject.h
+	"Common_Function.h"
 
 1680770061 source:d:\game c++\ltnc\daovang\common_function.cpp
 	"Common_Function.h"
 
-1680770127 d:\game c++\ltnc\daovang\common_function.h
+1680893926 d:\game c++\ltnc\daovang\common_function.h
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -55,4 +56,12 @@
 1680632078 d:\game c++\ltnc\daovang\luoicau.h
 	"Common_Function.h"
 	"BaseObject.h"
+
+1680895408 source:d:\game c++\ltnc\daovang\gamemain.cpp
+	"gameMain.h"
+
+1680894131 d:\game c++\ltnc\daovang\gamemain.h
+	"Common_Function.h"
+
+1680834954 d:\game c++\ltnc\daovang\data.h
 

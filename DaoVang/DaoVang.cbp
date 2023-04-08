@@ -34,13 +34,12 @@
 		</Compiler>
 		<Unit filename="BaseObject.cpp" />
 		<Unit filename="BaseObject.h" />
-		<Unit filename="Common_Function.cpp" />
 		<Unit filename="Common_Function.h" />
-		<Unit filename="LuoiCau.cpp" />
-		<Unit filename="LuoiCau.h" />
-		<Unit filename="MainObject.cpp" />
-		<Unit filename="MainObject.h" />
+		<Unit filename="Data.h" />
 		<Unit filename="SDL_utils.h" />
+		<Unit filename="TextObject.h" />
+		<Unit filename="gameMain.cpp" />
+		<Unit filename="gameMain.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
