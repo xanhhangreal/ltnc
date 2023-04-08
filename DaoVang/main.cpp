@@ -4,7 +4,10 @@
 #include "TextObject.h"
 #include "gameMain.h"
 #include "SDL_utils.h"
+
 using namespace std;
+
+TTF_Font* font_game;
 
 bool mouseInside(SDL_Point mouse, SDL_Rect area)
 {
@@ -123,49 +126,39 @@ unsigned int getNumDigit(int num)
 }
 void setGoal(int goal)
 {
+    font_game = TTF_OpenFont("Font/uvndaLat.ttf", 40);
     bool running = true;
-    char goalString[10];
-    BaseObject goalDia, goalBg;
-    SDL_Texture* goalGrade;
-    SDL_Rect textRect;
+    BaseObject goalBg;
+    TextObject goalGrade;
     unsigned int frames = 0;
 
     goalBg.LoadImg("Textures/goalBg.png", g_screen);
-    goalDia.LoadImg("Textures/goalDia.png", g_screen);
 
-    goalString[0] = '$';
-    SDL_itoa(goal, &goalString[1], 10);
-    goalGrade = loadRenderText(goalString, BLACK_TEXT);
+    /// Text
+    string str_goal = to_string(goal);
+    str_goal = str_goal + "$";
+    goalGrade.SetColor(TextObject::WHITE_TEXT);
+    goalGrade.SetText(str_goal);
+    goalGrade.LoadFromRenderText(font_game, g_screen);
+    goalGrade.SetValue(20 * (getNumDigit(goal) + 1), 70);
 
-	textRect.x = 10;//SCREEN_WIDTH / 2;
-	textRect.y = 10;//SCREEN_HEIGHT / 2 - 30;
-	textRect.w = 20 * (getNumDigit(goal) + 1);
-	textRect.h = 70;
+    while(running)
+    {
+        while(SDL_PollEvent(&g_event))
+            running = (g_event.type == SDL_QUIT);
 
-    goalDia.SetRect(SCREEN_WIDTH/2 - 320, SCREEN_HEIGHT/2 - 180, 640, 340);
-
-//    while(running)
-//    {
-//        while(SDL_PollEvent(&g_event))
-//            running = (g_event.type == SDL_QUIT);
-//
-//        SDL_RenderClear(g_screen);
-//        goalBg.Render(g_screen, NULL);
-//        //goalDia.Render(g_screen, NULL);
-//        SDL_RenderCopy(g_screen, goalGrade, NULL, &textRect);
-//        SDL_RenderPresent(g_screen);
-//
-//
-//        if(++frames >= FPS) running = false;
-//
-//    }
-    SDL_RenderCopy(g_screen, goalGrade, NULL, &textRect);
+        SDL_RenderClear(g_screen);
+        goalBg.Render(g_screen, NULL);
+        goalGrade.RenderText(g_screen, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 30);
         SDL_RenderPresent(g_screen);
-    if(goalGrade == NULL) cout << "?";
-    waitUntilKeyPressed();
+
+        if(++frames >= FPS) running = false;
+
+    }
+
+    SDL_Delay(1400);
     goalBg.Free();
-    goalDia.Free();
-    SDL_DestroyTexture(goalGrade);
+    goalGrade.Free();
 }
 levelInfo* getLevel(int lvl)
 {
@@ -189,8 +182,8 @@ levelInfo* getLevel(int lvl)
 }
 void gameOver(bool win)
 {
-    if(win == true) std::cout << "You Win " << userGrade;
-    else std::cout << "You Lost " << userGrade;
+    if(win == true) std::cout << "You Win ";
+    else std::cout << "You Lost ";
 }
 void startGame()
 {
@@ -221,9 +214,8 @@ int main(int argc, char* argv[]){
 
     SDL_Surface* icon = IMG_Load("Textures/icon.png");
     SDL_SetWindowIcon(g_window, icon);
-    //if(!readyAnimation()) return 0;
-    //else
-    startGame();
+    if(!readyAnimation()) return 0;
+    else startGame();
     SDL_FreeSurface(icon);
     quitSDL();
     return 0;

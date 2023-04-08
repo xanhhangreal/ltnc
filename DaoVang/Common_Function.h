@@ -22,8 +22,6 @@ const int SCREEN_BPP = 32;
 const int FPS = 60;
 const double PRE_FRAME_TICKS = (double)1000 / FPS;
 
-/// Game
-static int userGrade = 0;
 
 enum resImgId
 {
@@ -55,12 +53,6 @@ enum resSoundId
 	ID_SCORE2 = 8
 };
 
-enum TextColor
-{
-    RED_TEXT = 0,
-    WHITE_TEXT = 1,
-    BLACK_TEXT = 2
-} ;
 struct resPos
 {
 	int id;

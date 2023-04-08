@@ -1,54 +1,43 @@
 #ifndef TEXT_OBJECT_H_
 #define TEXT_OBJECT_H_
-#include "Common_Function.h"
 
-using namespace std;
+#include "Common_Function.h"
 
 class TextObject
 {
 public:
+    TextObject();
+    ~TextObject();
+
     enum TextColor
     {
         RED_TEXT = 0,
         WHITE_TEXT = 1,
-        BLACK_TEXT = 2
+        BLACK_TEXT = 2,
     };
-    TextObject()
-    {
 
-    }
-    ~TextObject()
-    {
+    bool LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen);
+    void Free();
 
-    }
+    void SetColor(Uint8 red, Uint8 green, Uint8 blue);
+    void SetColor(int type);
+    void SetValue(int width, int height) {width_ = width; height_ = height;}
 
-    void SetText(const string& text) {str_val = text;}
-    void SetColor(const int& type)
-    {
-        if(type == 0)
-        {
-            SDL_Color color = {255, 0, 0};
-            text_color = color;
-        }
-        else if(type == 1)
-        {
-            SDL_Color color = {255, 255, 255};
-            text_color = color;
-        }
-        else
-        {
-            SDL_Color color = {0, 0, 0};
-            text_color = color;
-        }
-    }
-    void CreateText(TTF_Font* font, SDL_Texture* des)
-    {
-        SDL_Surface* textSurface = TTF_RenderText_Solid(font, str_val.c_str(), text_color);
+    void RenderText(SDL_Renderer* screen, int xp, int yp, SDL_Rect* clip = NULL,
+                     double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-    }
+    int GetWidth() const {return width_;}
+    int GetHeight() const {return height_;}
+
+    void SetText(const std::string& text) {str_val_ = text;}
+    std::string GetText() const {return str_val_;}
 
 private:
-    string str_val;
-    SDL_Color text_color;
+    std::string str_val_;
+    SDL_Color text_color_;
+    SDL_Texture* texture_;
+    int width_;
+    int height_;
+
 };
-#endif // TEXT_OBJECT_H_
+#endif // TEXT_OBJECT_H
