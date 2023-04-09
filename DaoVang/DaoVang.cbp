@@ -37,10 +37,11 @@
 		<Unit filename="Common_Function.h" />
 		<Unit filename="Data.h" />
 		<Unit filename="SDL_utils.h" />
+		<Unit filename="TextObject.cpp" />
 		<Unit filename="TextObject.h" />
-		<Unit filename="gameMain.cpp" />
-		<Unit filename="gameMain.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="resProperties.cpp" />
+		<Unit filename="resProperties.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

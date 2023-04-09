@@ -8,6 +8,10 @@
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 
+#include "Data.h"
+#include "BaseObject.h"
+#include "TextObject.h"
+#include "resProperties.h"
 
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
@@ -31,13 +35,13 @@ enum resImgId
 	ID_SSTONE = 3,
 	ID_BSTONE = 4,
 	ID_DIAMOND = 5,
-	ID_GOLD = 6,
+	ID_BGOLD = 6,
 	ID_BAG = 7,
-	ID_GOALDIA = 8,
-	ID_GOALBG = 9,
-	ID_GAMEBG = 10,
-	ID_HOOK = 11,
-	ID_LINE = 12
+	ID_GOALBG = 8,
+	ID_GAMEBG = 9,
+	ID_HOOK = 10,
+	ID_LINE = 11,
+	ID_SGOLD = 12
 };
 
 enum resSoundId

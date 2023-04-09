@@ -1,13 +1,7 @@
-#include "Data.h"
 #include "Common_Function.h"
-#include "BaseObject.h"
-#include "TextObject.h"
-#include "gameMain.h"
 #include "SDL_utils.h"
 
 using namespace std;
-
-TTF_Font* font_game;
 
 bool mouseInside(SDL_Point mouse, SDL_Rect area)
 {
@@ -28,7 +22,7 @@ bool readyAnimation()
 	bool status = false;
 
 	mouseIn = Mix_LoadWAV(sodFile[ID_MOUSEIN]);
-	light.LoadImg(imgFile[ID_LIGHT], g_screen);
+    light.LoadImg(imgFile[ID_LIGHT], g_screen);
 	startBg.LoadImg(imgFile[ID_STARTBG], g_screen);
 	startButton.LoadImg(imgFile[ID_STARTBUTTON], g_screen);
 
@@ -126,18 +120,18 @@ unsigned int getNumDigit(int num)
 }
 void setGoal(int goal)
 {
-    font_game = TTF_OpenFont("Font/uvndaLat.ttf", 40);
+    TTF_Font* font_game = TTF_OpenFont("Font/uvndaLat.ttf", 40);
     bool running = true;
     BaseObject goalBg;
     TextObject goalGrade;
     unsigned int frames = 0;
 
-    goalBg.LoadImg("Textures/goalBg.png", g_screen);
+    goalBg.LoadImg(imgFile[ID_GOALBG], g_screen);
 
     /// Text
     string str_goal = to_string(goal);
     str_goal = str_goal + "$";
-    goalGrade.SetColor(TextObject::WHITE_TEXT);
+    goalGrade.SetColor(0x21, 0xd0, 0x1d);
     goalGrade.SetText(str_goal);
     goalGrade.LoadFromRenderText(font_game, g_screen);
     goalGrade.SetValue(20 * (getNumDigit(goal) + 1), 70);
@@ -156,7 +150,7 @@ void setGoal(int goal)
 
     }
 
-    SDL_Delay(1400);
+//    SDL_Delay(1400);
     goalBg.Free();
     goalGrade.Free();
 }
@@ -185,12 +179,84 @@ void gameOver(bool win)
     if(win == true) std::cout << "You Win ";
     else std::cout << "You Lost ";
 }
+bool rectImpact(SDL_Rect a, SDL_Rect b, double alw)
+{
+    return true;
+}
+
+int gameMain(levelInfo* level)
+{
+    TTF_Font* font_game = TTF_OpenFont("Font/VTIMESI.TTF", 40);
+    BaseObject gameBg, resTexture[level->totalRes], hook, line;
+    TextObject timeText, levelText, goalText, gradeText;
+    SDL_Point minerPin, hookPin, linePin;
+    resProperties resProp;
+    int startTime, levelTime, hookTimer, lineTimer;
+    int catchedRes = 0;
+    bool running = true, hookDown = false, hookGoRight = true, hookBack = false;
+    levelTime = SDL_GetTicks();
+    std::string levelStr = "", goalStr = "$" + std::to_string(level->levelGoal);
+    double hookAgle = 20.0, lineLen = 0.0;
+
+    gameBg.LoadImg(imgFile[ID_GAMEBG], g_screen);
+    hook.LoadImg(imgFile[ID_HOOK], g_screen);
+    line.LoadImg(imgFile[ID_LINE], g_screen);
+
+    levelText.SetText(std::to_string(level->level));
+    levelText.SetColor(TextObject::RED_TEXT);
+    levelText.LoadFromRenderText(font_game, g_screen);
+    levelText.SetValue(13 * getNumDigit(level->level), 45);
+    goalText.SetText(goalStr);
+    goalText.SetColor(TextObject::RED_TEXT);
+    goalText.LoadFromRenderText(font_game, g_screen);
+
+    for(int i = 0; i < level->totalRes; i++)
+    {
+        resTexture[i].LoadImg(imgFile[level->reses[i].id);
+        SDL_Rect rect = resTexture[i].GetRect();
+        rect.x = level->reses[i].position.x;
+        rect.y = level->reses[i].position.y;
+        resTexture[i].SetRect(rect);
+    }
+
+    minerPin.x = 480;
+	minerPin.y = 120;
+	timeRect.x = 850; timeRect.y = 20;
+	timeRect.w = 26; timeRect.h = 40;
+//	levelRect.x = 850; levelRect.y = 80;
+//	levelRect.w = 13 * getNumDigit(level->level);
+//	levelRect.h = 45;
+//	goalRect.x = 125; goalRect.y = 80;
+//	goalRect.w = 15 * (1 + getNumDigit(level->levelGoal));
+//	goalRect.h = 45;
+//	gradeRect.x = 130; gradeRect.y = 20;
+//	gradeRect.h = 45;
+	hookTimer = 0;
+	lineTimer = 0;
+	lineLen = 0;
+	catchedRes = -1;
+
+	hookRect.x = minerPin.x - hookRect.w;
+	hookRect.y = minerPin.y - 20;
+	hookPin.x = hookRect.w / 2;
+	hookPin.y = 0;
+	lineRect.x = minerPin.x - hookRect.w / 2;
+	lineRect.y = minerPin.y - 20;
+	lineRect.h = 0;
+	lineRect.w = 3;
+	linePin.x = 2;
+	linePin.y = 0;
+
+
+    gameBg.Free();
+    levelText.Free();
+    return true;
+}
 void startGame()
 {
     int lvlNum = 0;
 	bool win = false;
 	levelInfo* lvl = NULL;
-
     while(true)
     {
         lvl = getLevel(++lvlNum);
@@ -214,8 +280,10 @@ int main(int argc, char* argv[]){
 
     SDL_Surface* icon = IMG_Load("Textures/icon.png");
     SDL_SetWindowIcon(g_window, icon);
-    if(!readyAnimation()) return 0;
-    else startGame();
+   // if(!readyAnimation()) return 0;
+   // else
+        startGame();
+
     SDL_FreeSurface(icon);
     quitSDL();
     return 0;

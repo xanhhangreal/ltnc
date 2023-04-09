@@ -3,6 +3,7 @@
 
 #include "Common_Function.h"
 
+
 bool rectImpact(SDL_Rect a, SDL_Rect b, double alw);
 int gameMain(levelInfo* level);
 

@@ -18,10 +18,12 @@ BaseObject:: ~BaseObject()
     }
 }
 
-void BaseObject::LoadImg(std::string path, SDL_Renderer* screen)
+void BaseObject::LoadImg(const char* path, SDL_Renderer* screen)
+
 {
+    //std::cout << path << '/n';
     SDL_Texture* newTexture = NULL;
-    SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+    SDL_Surface* loadedSurface = IMG_Load( path );
     if( loadedSurface == NULL )
         std::cout << "Unable to load image " << path << " SDL_image Error: " << IMG_GetError() << '\n';
     else

@@ -16,7 +16,7 @@ public:
         BLACK_TEXT = 2,
     };
 
-    bool LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen);
+    void LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen);
     void Free();
 
     void SetColor(Uint8 red, Uint8 green, Uint8 blue);

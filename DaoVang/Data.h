@@ -7,11 +7,11 @@ const char imgFile[][30] = {
 	"Textures/diamond.png",
 	"Textures/gold.png",
 	"Textures/bag.png",
-	"Textures/goalDia.png",
-	"Textures/diaBg.png",
+	"Textures/goalBg.png",
 	"Textures/gameBg.png",
 	"Textures/hook.png",
-	"Textures/line.png"
+	"Textures/line.png",
+	"Textures/sgold.png"
 };
 
 const char sodFile[][30] = {

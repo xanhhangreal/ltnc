@@ -13,7 +13,7 @@ TextObject::~TextObject()
 
 }
 
-bool TextObject::LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen)
+void TextObject::LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen)
 {
     SDL_Surface* text_surface = TTF_RenderText_Solid(font, str_val_.c_str(), text_color_);
     if(text_surface != NULL)
@@ -25,7 +25,10 @@ bool TextObject::LoadFromRenderText(TTF_Font* font, SDL_Renderer* screen)
 
         SDL_FreeSurface(text_surface);
     }
-    return texture_ != NULL;
+    if(texture_ == NULL)
+    {
+        std::cout << "Khong load duoc text: " << str_val_ << '\n';
+    }
 }
 
 void TextObject::Free()
