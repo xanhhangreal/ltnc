@@ -4,11 +4,11 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1681086766 source:d:\game c++\ltnc\daovang\main.cpp
+1681107754 source:d:\game c++\ltnc\daovang\main.cpp
 	"Common_Function.h"
 	"SDL_utils.h"
 
-1680770061 d:\game c++\ltnc\daovang\sdl_utils.h
+1681103185 d:\game c++\ltnc\daovang\sdl_utils.h
 	"Common_Function.h"
 
 1679341844 d:\game c++\ltnc\daovang\sdl_init.h
@@ -26,7 +26,7 @@
 1680770061 source:d:\game c++\ltnc\daovang\common_function.cpp
 	"Common_Function.h"
 
-1681086730 d:\game c++\ltnc\daovang\common_function.h
+1681109338 d:\game c++\ltnc\daovang\common_function.h
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -63,7 +63,7 @@
 1681063464 d:\game c++\ltnc\daovang\gamemain.h
 	"Common_Function.h"
 
-1681070530 d:\game c++\ltnc\daovang\data.h
+1681106975 d:\game c++\ltnc\daovang\data.h
 
 1681065928 source:d:\game c++\ltnc\daovang\textobject.cpp
 	"TextObject.h"

@@ -11,18 +11,39 @@ const char imgFile[][30] = {
 	"Textures/gameBg.png",
 	"Textures/hook.png",
 	"Textures/line.png",
-	"Textures/sgold.png"
+	"Textures/sgold.png",
+	"Textures/gameBg1.png",
+	"Textures/gameBg2.png",
+	"Textures/img_duongray.png",
+	"Textures/cot1.png",
+	"Textures/cot2.png",
+	"Textures/img_obj1.png",
+	"Textures/img_obj2.png",
+	"Textures/img_obj3.png",
+	"Textures/img_obj4.png",
+	"Textures/img_obj5.png",
+	"Textures/img_obj6.png",
+	"Textures/img_obj7.png",
+	"Textures/img_obj8.png",
+	"Textures/img_obj9.png",
+	"Textures/img_obj10.png",
+	"Textures/img_obj11.png",
+	"Textures/img_obj12.png",
+	"Textures/img_bgwin.png",
+	"Textures/img_bgfail.png",
+	"Textures/img_banglevel.png"
 };
 
 const char sodFile[][30] = {
 	"Sounds/mouseIn.wav",
-	"Sounds/dig.mp3",
-	"Sounds/explosive.wav",
-	"Sounds/highValue.wav",
+	"Sounds/finish.mp3",
+	"Sounds/largegold.mp3",
+	"Sounds/lastart.mp3",
+	"Sounds/level.mp3",
+	"Sounds/Select.mp3",
 	"Sounds/lowValue.wav",
-	"Sounds/norValue.wav",
-	"Sounds/pull.wav",
-	"Sounds/score1.wav",
-	"Sounds/score2.wav"
+	"Sounds/norvalue.wav",
+	"Sounds/score2.wav",
+	"Sounds/kimcuong.mp3"
 };
 
