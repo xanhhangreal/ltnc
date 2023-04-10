@@ -10,7 +10,7 @@ public:
     ~BaseObject();
 
     void SetRect(const int& x, const int& y, const int& w, const int& h){rect_.x = x, rect_.y = y, rect_.w = w, rect_.h = h;}
-    void SetRect(const SDL_Rect rect){rect_ = rect;}
+    void SetRect(const int& x, const int& y){rect_.x = x, rect_.y = y;}
     SDL_Rect GetRect() const {return rect_;}
     SDL_Texture* GetObject() const {return p_object_;}
 

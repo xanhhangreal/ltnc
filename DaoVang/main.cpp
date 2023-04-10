@@ -120,7 +120,7 @@ unsigned int getNumDigit(int num)
 }
 void setGoal(int goal)
 {
-    TTF_Font* font_game = TTF_OpenFont("Font/uvndaLat.ttf", 40);
+    TTF_Font* font_game = TTF_OpenFont("Font/uvndaLat.ttf", 100);
     bool running = true;
     BaseObject goalBg;
     TextObject goalGrade;
@@ -150,7 +150,7 @@ void setGoal(int goal)
 
     }
 
-//    SDL_Delay(1400);
+    SDL_Delay(1400);
     goalBg.Free();
     goalGrade.Free();
 }
@@ -181,74 +181,222 @@ void gameOver(bool win)
 }
 bool rectImpact(SDL_Rect a, SDL_Rect b, double alw)
 {
-    return true;
+    SDL_Point r1, r2;
+	r1.x = a.x + a.w / 2;
+	r1.y = a.y + a.h / 2;
+	r2.x = b.x + b.w / 2;
+	r2.y = b.y + b.h / 2;
+	double r = sqrt((r1.x - r2.x)*(r1.x - r2.x) + (r1.y - r2.y)*(r1.y - r2.y));
+	if( r <= (a.w + b.w) / (2.0 * alw) && r <= (a.h + b.h) / (2.0 * alw))
+    {
+        //cout << alw;
+        return true;
+    }
+	else
+		return false;
+}
+double getAlw(int resId)
+{
+	double alw = 0;
+	switch(resId) {
+	case ID_BSTONE:
+		alw = ID_BSTONE_ALW;
+		break;
+	case ID_SSTONE:
+		alw = ID_SSTONE_ALW;
+		break;
+	case ID_BGOLD:
+		alw = ID_BGOLD_ALW;
+		break;
+    case ID_SGOLD:
+        alw = ID_SGOLD_ALW;
+		break;
+	case ID_DIAMOND:
+		alw = ID_DIAMOND_ALW;
+		break;
+	case ID_BAG:
+		alw = ID_BAG_ALW;
+		break;
+
+	}
+	return alw;
 }
 
 int gameMain(levelInfo* level)
 {
-    TTF_Font* font_game = TTF_OpenFont("Font/VTIMESI.TTF", 40);
+    TTF_Font* font_game = TTF_OpenFont("Font/VTIMESI.TTF", 50);
     BaseObject gameBg, resTexture[level->totalRes], hook, line;
     TextObject timeText, levelText, goalText, gradeText;
     SDL_Point minerPin, hookPin, linePin;
     resProperties resProp;
     int startTime, levelTime, hookTimer, lineTimer;
-    int catchedRes = 0;
+    int catchedRes = 0, userGrade = 0;
     bool running = true, hookDown = false, hookGoRight = true, hookBack = false;
     levelTime = SDL_GetTicks();
     std::string levelStr = "", goalStr = "$" + std::to_string(level->levelGoal);
-    double hookAgle = 20.0, lineLen = 0.0;
+    double hookAngle = 20.0, lineLen = 0.0;
 
     gameBg.LoadImg(imgFile[ID_GAMEBG], g_screen);
     hook.LoadImg(imgFile[ID_HOOK], g_screen);
+    SDL_Rect hookRect = hook.GetRect();
     line.LoadImg(imgFile[ID_LINE], g_screen);
+
 
     levelText.SetText(std::to_string(level->level));
     levelText.SetColor(TextObject::RED_TEXT);
     levelText.LoadFromRenderText(font_game, g_screen);
-    levelText.SetValue(13 * getNumDigit(level->level), 45);
     goalText.SetText(goalStr);
     goalText.SetColor(TextObject::RED_TEXT);
     goalText.LoadFromRenderText(font_game, g_screen);
 
     for(int i = 0; i < level->totalRes; i++)
     {
-        resTexture[i].LoadImg(imgFile[level->reses[i].id);
-        SDL_Rect rect = resTexture[i].GetRect();
-        rect.x = level->reses[i].position.x;
-        rect.y = level->reses[i].position.y;
-        resTexture[i].SetRect(rect);
+        resTexture[i].LoadImg(imgFile[level->reses[i].id], g_screen);
+        resTexture[i].SetRect(level->reses[i].position.x, level->reses[i].position.y);
     }
 
-    minerPin.x = 480;
+	levelText.SetValue(13 * getNumDigit(level->level), 45);
+	goalText.SetValue(15 * (1 + getNumDigit(level->levelGoal)), 45);
+
+	minerPin.x = 480;
 	minerPin.y = 120;
-	timeRect.x = 850; timeRect.y = 20;
-	timeRect.w = 26; timeRect.h = 40;
-//	levelRect.x = 850; levelRect.y = 80;
-//	levelRect.w = 13 * getNumDigit(level->level);
-//	levelRect.h = 45;
-//	goalRect.x = 125; goalRect.y = 80;
-//	goalRect.w = 15 * (1 + getNumDigit(level->levelGoal));
-//	goalRect.h = 45;
-//	gradeRect.x = 130; gradeRect.y = 20;
-//	gradeRect.h = 45;
+	hookRect.x = minerPin.x - hookRect.w / 2;
+	hookRect.y = minerPin.y - 20;
+    line.SetRect(minerPin.x - hookRect.w / 2, minerPin.y - 20, 3, 0);
+    SDL_Rect lineRect = line.GetRect();
 	hookTimer = 0;
 	lineTimer = 0;
 	lineLen = 0;
 	catchedRes = -1;
-
-	hookRect.x = minerPin.x - hookRect.w;
-	hookRect.y = minerPin.y - 20;
 	hookPin.x = hookRect.w / 2;
 	hookPin.y = 0;
-	lineRect.x = minerPin.x - hookRect.w / 2;
-	lineRect.y = minerPin.y - 20;
-	lineRect.h = 0;
-	lineRect.w = 3;
 	linePin.x = 2;
 	linePin.y = 0;
 
 
+    while(running)
+    {
+        char timeStr[3] = { 0 };
+        startTime = SDL_GetTicks();
+        if(startTime - levelTime > 60000) running = false;
+        while(SDL_PollEvent(&g_event))
+        {
+            if(g_event.type == SDL_QUIT) running = false;
+            if(g_event.type == SDL_KEYDOWN)
+                if((g_event.key.keysym.sym == SDLK_DOWN || g_event.key.keysym.sym == SDLK_SPACE) && !hookDown)
+                    hookDown = true;
+        }
+
+        if(!hookDown)
+        {
+            if(SDL_GetTicks() - hookTimer > 20)
+            {
+                hookTimer = SDL_GetTicks();
+                if(hookGoRight)
+                {
+                    hookAngle += 1.5;
+                    if(hookAngle >= 165.0) hookGoRight = false;
+                }
+                else
+                {
+                    hookAngle -= 1.5;
+                    if(hookAngle <= 15.0) hookGoRight = true;
+                }
+            }
+        }
+        else
+        {
+            if(SDL_GetTicks() - lineTimer > 20)
+            {
+                lineTimer = SDL_GetTicks();
+                if(!hookBack) lineLen += 5;
+                else if(resProp.getId() == -1) lineLen -= 6;
+                else
+                {
+                    lineLen -= (double)6 / resProp.getWeight();
+                    if(hookAngle <= 90.0)
+                    {
+                        SDL_Rect rect = resTexture[catchedRes].GetRect();
+						resTexture[catchedRes].SetRect(hookRect.x - rect.w / 2,
+                                                       hookRect.y - rect.h / 2 + 35);
+                    }
+                    else
+                    {
+                        SDL_Rect rect = resTexture[catchedRes].GetRect();
+						resTexture[catchedRes].SetRect(hookRect.x + rect.w / 2 - 30,
+                                                       hookRect.y - rect.h / 2 + 35);
+                    }
+                }
+                if(lineLen < 0.0) lineLen = 0.0;
+            }
+            if(lineLen <= 1.0)
+            {
+                hookDown = hookBack = false;
+                userGrade += resProp.score;
+                resProp.setId(-1);
+                if(catchedRes != -1) resTexture[catchedRes].Free();
+                catchedRes = -1;
+            }
+            if(lineLen >= 500.0) hookBack = true;
+            if(hookAngle <= 90.0)
+            {
+                hookRect.x = minerPin.x - hookRect.w - abs(cos(hookAngle / 180.0 * M_PI) * lineLen);
+                hookRect.y = minerPin.y + abs(sin(hookAngle / 180.0 * M_PI) * lineLen) - 20;
+            }
+            else
+            {
+                hookRect.x = minerPin.x - hookRect.w + abs(cos(hookAngle / 180.0 * M_PI) * lineLen);
+				hookRect.y = minerPin.y + abs(sin(hookAngle / 180.0 * M_PI) * lineLen) - 20;
+            }
+        }
+        gradeText.SetText("$" + to_string(userGrade));
+        gradeText.SetColor(0x21, 0xd0, 0x1d);
+        gradeText.LoadFromRenderText(font_game, g_screen);
+        gradeText.SetValue(15 * (getNumDigit(userGrade) + 1), 45);
+        lineRect.h = lineLen;
+        line.SetRect(lineRect.x, lineRect.y, lineRect.w, lineRect.h);
+
+        timeText.Free();
+        timeText.SetText(to_string(60 - (startTime - levelTime) / 1000));
+        timeText.SetColor(TextObject::RED_TEXT);
+        timeText.LoadFromRenderText(font_game, g_screen);
+        timeText.SetValue(26, 40);
+
+        gameBg.Render(g_screen, NULL);
+        levelText.RenderText(g_screen, 850, 80);
+        timeText.RenderText(g_screen, 850, 20);
+        goalText.RenderText(g_screen, 125, 80);
+        gradeText.RenderText(g_screen, 130, 20);
+        SDL_RenderCopyEx(g_screen, hook.GetObject(), NULL, &hookRect, 90 - hookAngle, &hookPin, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(g_screen, line.GetObject(), NULL, &lineRect, 90 - hookAngle, &linePin, SDL_FLIP_NONE);
+
+		for(int i = 0; i < level->totalRes; i++)
+            if(resTexture[i].GetObject() != NULL) resTexture[i].Render(g_screen, NULL);
+        SDL_RenderPresent(g_screen);
+
+        if(catchedRes == -1)
+        {
+            for(int i = 0; i < level->totalRes; i++)
+            {
+				if(resTexture[i].GetObject() == NULL) continue;
+				if(rectImpact(hookRect, resTexture[i].GetRect(), getAlw(level->reses[i].id)))
+				{
+					catchedRes = i;
+					resProp.setId(level->reses[i].id);
+					hookBack = true;
+					printf("Catched!\n");
+					break;
+                }
+            }
+        }
+    }
+
+
+    for(int i = 0; i < level->totalRes; i++) resTexture[i].Free();
+    line.Free();
+    hook.Free();
     gameBg.Free();
+    timeText.Free();
     levelText.Free();
     return true;
 }
@@ -280,8 +428,8 @@ int main(int argc, char* argv[]){
 
     SDL_Surface* icon = IMG_Load("Textures/icon.png");
     SDL_SetWindowIcon(g_window, icon);
-   // if(!readyAnimation()) return 0;
-   // else
+    if(!readyAnimation()) return 0;
+    else
         startGame();
 
     SDL_FreeSurface(icon);

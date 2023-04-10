@@ -36,20 +36,6 @@ unsigned int getNumDigit(int num)
 	return count;
 }
 
-bool rectImpact(SDL_Rect a, SDL_Rect b, float alw)
-{
-	SDL_Point r1, r2;
-	r1.x = a.x + a.w / 2;
-	r1.y = a.y + a.h / 2;
-	r2.x = b.x + b.w / 2;
-	r2.y = b.y + b.h / 2;
-	float r = sqrt((r1.x - r2.x)*(r1.x - r2.x) + (r1.y - r2.y)*(r1.y - r2.y));
-	//if((abs((a.x + a.w / 2) - (b.x + b.w / 2)) <= (a.w / 2 + b.w / 2) / alw) && abs((a.y + a.h / 2) - (b.y + b.h / 2)) <= (a.h / 2 + b.h / 2) / alw)
-	if( r <= (a.w + b.w) / (2.0 * alw) && r <= (a.h + b.h) / (2.0 * alw))
-		return true;
-	else
-		return false;
-}
 
 void setGoal(int goal)
 {
@@ -119,6 +105,20 @@ void destroyLevel(levelInfo *lvl)
 	free(lvl->reses);
 	free(lvl);
 	lvl = NULL;
+}
+bool rectImpact(SDL_Rect a, SDL_Rect b, float alw)
+{
+	SDL_Point r1, r2;
+	r1.x = a.x + a.w / 2;
+	r1.y = a.y + a.h / 2;
+	r2.x = b.x + b.w / 2;
+	r2.y = b.y + b.h / 2;
+	float r = sqrt((r1.x - r2.x)*(r1.x - r2.x) + (r1.y - r2.y)*(r1.y - r2.y));
+	//if((abs((a.x + a.w / 2) - (b.x + b.w / 2)) <= (a.w / 2 + b.w / 2) / alw) && abs((a.y + a.h / 2) - (b.y + b.h / 2)) <= (a.h / 2 + b.h / 2) / alw)
+	if( r <= (a.w + b.w) / (2.0 * alw) && r <= (a.h + b.h) / (2.0 * alw))
+		return true;
+	else
+		return false;
 }
 
 int gameMain(levelInfo *level)

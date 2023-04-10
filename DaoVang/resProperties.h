@@ -9,9 +9,8 @@ public:
 	resProperties(int resId = -1);
 
 	void setId(int resId);
-	double getAlw();
-	int getId();
-	double getWeight();
+	int getId() {return id;}
+	double getWeight() {return weight;}
 
 private:
     int id;

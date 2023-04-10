@@ -1,26 +1,5 @@
 #include "resProperties.h"
 
-#define ID_DIAMOND_ALW	1.1
-#define ID_SSTONE_ALW	1.2
-#define ID_BSTONE_ALW   2.0
-#define ID_BAG_ALW	1.5
-#define ID_BGOLD_ALW	2.0
-#define ID_SGOLD_ALW    1.0
-
-double resProperties::getAlw()
-{
-	return alw;
-}
-
-int resProperties::getId()
-{
-	return id;
-}
-
-double resProperties::getWeight()
-{
-	return weight;
-}
 
 void resProperties::setId(int resId)
 {
@@ -68,31 +47,4 @@ resProperties::resProperties(int resId)
 {
 	this->setId(resId);
     /// thay bằng return thử
-}
-
-double getAlw(int resId)
-{
-	double alw = 0;
-	switch(resId) {
-	case ID_BSTONE:
-		alw = ID_BSTONE_ALW;
-		break;
-	case ID_SSTONE:
-		alw = ID_SSTONE_ALW;
-		break;
-	case ID_BGOLD:
-		alw = ID_BGOLD_ALW;
-		break;
-    case ID_SGOLD:
-        alw = ID_SGOLD_ALW;
-		break;
-	case ID_DIAMOND:
-		alw = ID_DIAMOND_ALW;
-		break;
-	case ID_BAG:
-		alw = ID_BAG_ALW;
-		break;
-
-	}
-	return alw;
 }

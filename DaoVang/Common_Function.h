@@ -13,6 +13,14 @@
 #include "TextObject.h"
 #include "resProperties.h"
 
+#define ID_DIAMOND_ALW	1.1
+#define ID_SSTONE_ALW	1.2
+#define ID_BSTONE_ALW   1.5
+#define ID_BAG_ALW	1.5
+#define ID_BGOLD_ALW	2.0
+#define ID_SGOLD_ALW    1.0
+
+
 static SDL_Window* g_window = NULL;
 static SDL_Renderer* g_screen = NULL;
 static SDL_Event g_event;
