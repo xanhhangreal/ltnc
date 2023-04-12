@@ -229,6 +229,46 @@ levelInfo* getLevel(int lvl)
         currentLvl->idBg = ID_GAMEBG2;
         return currentLvl;
     }
+//    else if(lvl == 3)
+//    {
+//        levelInfo* currentLvl = (levelInfo *)malloc(sizeof(levelInfo));
+//        currentLvl->level = lvl;
+//        currentLvl->levelGoal = 20000;
+//        currentLvl->totalRes = 13;
+//
+//        resPos* res = (resPos* )malloc(sizeof(resPos) * currentLvl->totalRes);
+//        res[0].id = ID_BSTONE;
+//        res[0].position = {900, 300};
+//        res[1].id = ID_BGOLD;
+//        res[1].position = {1000, 450};
+//        res[2].id = ID_SGOLD;
+//        res[2].position = {300, 500};
+//        res[3].id = ID_SSTONE;
+//        res[3].position = {250, 250};
+//        res[4].id = ID_BGOLD;
+//        res[4].position = {100, 400};
+//        res[5].id = ID_DIAMOND;
+//        res[5].position = {150, 600};
+//        res[6].id = ID_SGOLD;
+//        res[6].position = {500, 230};
+//        res[7].id = ID_SSTONE;
+//        res[7].position = {600, 200};
+//        res[8].id = ID_BSTONE;
+//        res[8].position = {400, 300};
+//        res[9].id = ID_BAG;
+//        res[9].position = {650, 650};
+//        res[10].id = ID_SGOLD;
+//        res[10].position = {600, 550};
+//        res[11].id = ID_SGOLD;
+//        res[11].position = {650, 580};
+//        res[12].id = ID_SGOLD;
+//        res[12].position = {580, 490};
+//
+//        currentLvl->reses = res;
+//
+//        currentLvl->idBg = ID_GAMEBG2;
+//        return currentLvl;
+//    }
     return NULL;
 }
 unsigned int userGrade = 0;
@@ -318,16 +358,25 @@ double getAlw(int resId)
 int gameMain(levelInfo* level)
 {
     TTF_Font* font_game = TTF_OpenFont("Font/VTIMESI.TTF", 40);
-    BaseObject gameBg, resTexture[level->totalRes], hook, line, duongray, cot1, cot2, obj[30];
+    BaseObject gameBg, resTexture[level->totalRes], hook, line, duongray, cot1, cot2, obj[30], pause[2], reload;
     TextObject timeText, levelText, goalText, gradeText;
     SDL_Point minerPin, hookPin, linePin;
     resProperties resProp;
     int startTime, levelTime, hookTimer, lineTimer, objTimer;
     int catchedRes = 0;
-    bool running = true, hookDown = false, hookGoRight = true, hookBack = false;
+    unsigned int userGradeSave = userGrade;
+    bool running = true, hookDown = false, hookGoRight = true, hookBack = false, checkReload = false;
     levelTime = objTimer = SDL_GetTicks();
     std::string levelStr = "", goalStr = "$" + std::to_string(level->levelGoal);
     double hookAngle = 20.0, lineLen = 0.0;
+
+    for(int i = 0; i <= 1; i++)
+    {
+        pause[i].LoadImg(imgFile[ID_PAUSE1 + i], g_screen);
+        pause[i].SetRect(1200, 5, 60, 60);
+    }
+    reload.LoadImg(imgFile[ID_RELOAD], g_screen);
+    reload.SetRect(1200, 70, 60, 60);
 
     gameBg.LoadImg(imgFile[level->idBg], g_screen);
     hook.LoadImg(imgFile[ID_HOOK], g_screen);
@@ -398,6 +447,23 @@ int gameMain(levelInfo* level)
             if(g_event.type == SDL_KEYDOWN)
                 if((g_event.key.keysym.sym == SDLK_DOWN || g_event.key.keysym.sym == SDLK_SPACE) && !hookDown)
                     hookDown = true;
+            if(g_event.type == SDL_MOUSEBUTTONDOWN)
+            {
+                SDL_Point mouse;
+                SDL_GetMouseState(&mouse.x, &mouse.y);
+                if(mouseInside(mouse, pause[0].GetRect()))
+                {
+                    pause[1].Render(g_screen, NULL);
+                    SDL_RenderPresent(g_screen);
+                    Mix_PlayChannel(-1, select, 0);
+                    waitUntilKeyPressed();
+                }
+                if(mouseInside(mouse, reload.GetRect()))
+                {
+                    checkReload = true;
+                    running = false;
+                }
+            }
         }
         if(!hookDown)
         {
@@ -488,6 +554,8 @@ int gameMain(levelInfo* level)
         timeText.SetValue(26, 40);
 
         gameBg.Render(g_screen, NULL);
+        pause[0].Render(g_screen, NULL);
+        reload.Render(g_screen, NULL);
         duongray.Render(g_screen, NULL);
         cot1.Render(g_screen, NULL);
         cot2.Render(g_screen, NULL);
@@ -522,6 +590,8 @@ int gameMain(levelInfo* level)
                 }
             }
         }
+        if(PRE_FRAME_TICKS > (SDL_GetTicks() - startTime))
+			SDL_Delay(PRE_FRAME_TICKS - (SDL_GetTicks() - startTime));
     }
 
     for(int i = 0; i < level->totalRes; i++) resTexture[i].Free();
@@ -529,6 +599,8 @@ int gameMain(levelInfo* level)
     line.Free();
     hook.Free();
     gameBg.Free();
+    pause[0].Free();    pause[1].Free();
+    reload.Free();
     duongray.Free();
     cot1.Free();
     cot2.Free();
@@ -541,6 +613,11 @@ int gameMain(levelInfo* level)
     Mix_FreeChunk(lastart);
     Mix_FreeChunk(select);
     Mix_FreeChunk(score);
+    if(checkReload)
+    {
+        userGrade = userGradeSave;
+        gameMain(level);
+    }
     return userGrade;
 }
 void startGame()

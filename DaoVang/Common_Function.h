@@ -14,10 +14,10 @@
 #include "resProperties.h"
 
 #define ID_DIAMOND_ALW	1.3
-#define ID_SSTONE_ALW	1.5
-#define ID_BSTONE_ALW   1.8
+#define ID_SSTONE_ALW	1.4
+#define ID_BSTONE_ALW   1.85
 #define ID_BAG_ALW	1.7
-#define ID_BGOLD_ALW	1.9
+#define ID_BGOLD_ALW	1.85
 #define ID_SGOLD_ALW    1.0
 
 
@@ -69,7 +69,10 @@ enum resImgId
 	ID_ONGLAO11,
 	ID_BGWIN,
 	ID_BGFAIL,
-	ID_BANGLEVEL
+	ID_BANGLEVEL,
+	ID_PAUSE1,
+	ID_PAUSE2,
+	ID_RELOAD
 };
 
 enum resSoundId
