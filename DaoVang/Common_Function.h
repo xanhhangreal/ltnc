@@ -13,12 +13,12 @@
 #include "TextObject.h"
 #include "resProperties.h"
 
-#define ID_DIAMOND_ALW	1.3
-#define ID_SSTONE_ALW	1.4
-#define ID_BSTONE_ALW   1.85
-#define ID_BAG_ALW	1.7
-#define ID_BGOLD_ALW	1.85
-#define ID_SGOLD_ALW    1.0
+#define ID_DIAMOND_ALW	1.2
+#define ID_SSTONE_ALW	1.3
+#define ID_BSTONE_ALW   1.7
+#define ID_BAG_ALW	1.6
+#define ID_BGOLD_ALW	1.7
+#define ID_SGOLD_ALW    0.9
 
 
 static SDL_Window* g_window = NULL;
@@ -72,7 +72,8 @@ enum resImgId
 	ID_BANGLEVEL,
 	ID_PAUSE1,
 	ID_PAUSE2,
-	ID_RELOAD
+	ID_RELOAD,
+	ID_GAMEBG3
 };
 
 enum resSoundId

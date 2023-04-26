@@ -193,7 +193,7 @@ levelInfo* getLevel(int lvl)
     {
         levelInfo* currentLvl = (levelInfo *)malloc(sizeof(levelInfo));
         currentLvl->level = lvl;
-        currentLvl->levelGoal = 1200;
+        currentLvl->levelGoal = 1500;
         currentLvl->totalRes = 13;
 
         resPos* res = (resPos* )malloc(sizeof(resPos) * currentLvl->totalRes);
@@ -229,16 +229,16 @@ levelInfo* getLevel(int lvl)
         currentLvl->idBg = ID_GAMEBG2;
         return currentLvl;
     }
-//    else if(lvl == 3)
-//    {
-//        levelInfo* currentLvl = (levelInfo *)malloc(sizeof(levelInfo));
-//        currentLvl->level = lvl;
-//        currentLvl->levelGoal = 20000;
-//        currentLvl->totalRes = 13;
-//
-//        resPos* res = (resPos* )malloc(sizeof(resPos) * currentLvl->totalRes);
-//        res[0].id = ID_BSTONE;
-//        res[0].position = {900, 300};
+    else if(lvl == 3)
+    {
+        levelInfo* currentLvl = (levelInfo *)malloc(sizeof(levelInfo));
+        currentLvl->level = lvl;
+        currentLvl->levelGoal = 4000;
+        currentLvl->totalRes = 13;
+
+        resPos* res = (resPos* )malloc(sizeof(resPos) * currentLvl->totalRes);
+        res[0].id = ID_BSTONE;
+        res[0].position = {900, 300};
 //        res[1].id = ID_BGOLD;
 //        res[1].position = {1000, 450};
 //        res[2].id = ID_SGOLD;
@@ -263,12 +263,12 @@ levelInfo* getLevel(int lvl)
 //        res[11].position = {650, 580};
 //        res[12].id = ID_SGOLD;
 //        res[12].position = {580, 490};
-//
-//        currentLvl->reses = res;
-//
-//        currentLvl->idBg = ID_GAMEBG2;
-//        return currentLvl;
-//    }
+
+        currentLvl->reses = res;
+
+        currentLvl->idBg = ID_GAMEBG3;
+        return currentLvl;
+    }
     return NULL;
 }
 unsigned int userGrade = 0;
@@ -622,7 +622,7 @@ int gameMain(levelInfo* level)
 }
 void startGame()
 {
-    int lvlNum = 0;
+    int lvlNum = 2;
     bool win = false;
 	levelInfo* lvl = NULL;
     while(true)

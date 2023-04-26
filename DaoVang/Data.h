@@ -34,7 +34,8 @@ const char imgFile[][30] = {
 	"Textures/img_banglevel.png",
 	"Textures/pause1.png",
 	"Textures/pause2.png",
-	"Textures/reload.png"
+	"Textures/reload.png",
+	"Textures/gameBg3.png"
 };
 
 const char sodFile[][30] = {
