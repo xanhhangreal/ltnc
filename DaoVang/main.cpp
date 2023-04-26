@@ -659,8 +659,8 @@ int main(int argc, char* argv[]){
 
     SDL_Surface* icon = IMG_Load("Textures/icon.png");
     SDL_SetWindowIcon(g_window, icon);
-    //if(!readyAnimation()) return 0;
-    //else
+    if(!readyAnimation()) return 0;
+    else
         startGame();
 
     SDL_FreeSurface(icon);
