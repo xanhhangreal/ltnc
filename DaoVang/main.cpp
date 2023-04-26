@@ -234,35 +234,43 @@ levelInfo* getLevel(int lvl)
         levelInfo* currentLvl = (levelInfo *)malloc(sizeof(levelInfo));
         currentLvl->level = lvl;
         currentLvl->levelGoal = 4000;
-        currentLvl->totalRes = 13;
+        currentLvl->totalRes = 17;
 
         resPos* res = (resPos* )malloc(sizeof(resPos) * currentLvl->totalRes);
-        res[0].id = ID_BSTONE;
-        res[0].position = {900, 300};
-//        res[1].id = ID_BGOLD;
-//        res[1].position = {1000, 450};
-//        res[2].id = ID_SGOLD;
-//        res[2].position = {300, 500};
-//        res[3].id = ID_SSTONE;
-//        res[3].position = {250, 250};
-//        res[4].id = ID_BGOLD;
-//        res[4].position = {100, 400};
-//        res[5].id = ID_DIAMOND;
-//        res[5].position = {150, 600};
-//        res[6].id = ID_SGOLD;
-//        res[6].position = {500, 230};
-//        res[7].id = ID_SSTONE;
-//        res[7].position = {600, 200};
-//        res[8].id = ID_BSTONE;
-//        res[8].position = {400, 300};
-//        res[9].id = ID_BAG;
-//        res[9].position = {650, 650};
-//        res[10].id = ID_SGOLD;
-//        res[10].position = {600, 550};
-//        res[11].id = ID_SGOLD;
-//        res[11].position = {650, 580};
-//        res[12].id = ID_SGOLD;
-//        res[12].position = {580, 490};
+        res[0].id = ID_SSTONE;
+        res[0].position = {900, 600};
+        res[1].id = ID_SSTONE;
+        res[1].position = {1000, 650};
+        res[2].id = ID_SSTONE;
+        res[2].position = {1000, 550};
+        res[3].id = ID_DIAMOND;
+        res[3].position = {980, 620};
+        res[4].id = ID_BGOLD;
+        res[4].position = {100, 400};
+        res[5].id = ID_SGOLD;
+        res[5].position = {150, 600};
+        res[6].id = ID_BGOLD;
+        res[6].position = {1000, 230};
+        res[7].id = ID_BSTONE;
+        res[7].position = {1020, 380};
+        res[8].id = ID_BSTONE;
+        res[8].position = {250, 380};
+        res[9].id = ID_SGOLD;
+        res[9].position = {450, 450};
+        res[10].id = ID_SGOLD;
+        res[10].position = {600, 600};
+        res[11].id = ID_SGOLD;
+        res[11].position = {759, 580};
+        res[12].id = ID_SGOLD;
+        res[12].position = {900, 200};
+        res[13].id = ID_SGOLD;
+        res[13].position = {170, 200};
+        res[14].id = ID_BGOLD;
+        res[14].position = {300, 580};
+        res[15].id = ID_SGOLD;
+        res[15].position = {450, 320};
+        res[16].id = ID_SGOLD;
+        res[16].position = {700, 300};
 
         currentLvl->reses = res;
 
@@ -622,7 +630,7 @@ int gameMain(levelInfo* level)
 }
 void startGame()
 {
-    int lvlNum = 2;
+    int lvlNum = 0;
     bool win = false;
 	levelInfo* lvl = NULL;
     while(true)
@@ -651,8 +659,9 @@ int main(int argc, char* argv[]){
 
     SDL_Surface* icon = IMG_Load("Textures/icon.png");
     SDL_SetWindowIcon(g_window, icon);
-    if(!readyAnimation()) return 0;
-    else startGame();
+    //if(!readyAnimation()) return 0;
+    //else
+        startGame();
 
     SDL_FreeSurface(icon);
     quitSDL();
