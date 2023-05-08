@@ -15,7 +15,7 @@
 
 #define ID_DIAMOND_ALW	1.2
 #define ID_SSTONE_ALW	1.3
-#define ID_BSTONE_ALW   1.6
+#define ID_BSTONE_ALW   1.5
 #define ID_BAG_ALW	1.6
 #define ID_BGOLD_ALW	1.6
 #define ID_SGOLD_ALW    0.9

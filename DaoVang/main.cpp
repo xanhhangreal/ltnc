@@ -443,12 +443,12 @@ int gameMain(levelInfo* level)
     Mix_Chunk* score = Mix_LoadWAV(sodFile[ID_SCORE]);
     Mix_Chunk* kimCuong = Mix_LoadWAV(sodFile[ID_KC]);
 
-    int id_O = 0;
+    int id_O = 0, timePause = 0;
     while(running)
     {
         char timeStr[3] = { 0 };
         startTime = SDL_GetTicks();
-        if(startTime - levelTime > 60000) running = false;
+        if(startTime - levelTime - timePause > 60000) running = false;
         while(SDL_PollEvent(&g_event))
         {
             if(g_event.type == SDL_QUIT) running = false;
@@ -464,7 +464,10 @@ int gameMain(levelInfo* level)
                     pause[1].Render(g_screen, NULL);
                     SDL_RenderPresent(g_screen);
                     Mix_PlayChannel(-1, select, 0);
+                    int TimeP = SDL_GetTicks();
                     waitUntilKeyPressed();
+                    timePause += SDL_GetTicks() - TimeP;
+
                 }
                 if(mouseInside(mouse, reload.GetRect()))
                 {
@@ -556,7 +559,7 @@ int gameMain(levelInfo* level)
         line.SetRect(lineRect.x, lineRect.y, lineRect.w, lineRect.h);
 
         timeText.Free();
-        timeText.SetText(to_string(60 - (startTime - levelTime) / 1000));
+        timeText.SetText(to_string(60 - (startTime - levelTime - timePause) / 1000));
         timeText.SetColor(TextObject::RED_TEXT);
         timeText.LoadFromRenderText(font_game, g_screen);
         timeText.SetValue(26, 40);
@@ -659,10 +662,11 @@ int main(int argc, char* argv[]){
 
     SDL_Surface* icon = IMG_Load("Textures/icon.png");
     SDL_SetWindowIcon(g_window, icon);
-    if(!readyAnimation()) return 0;
-    else
+    while(true)
+    {
+        if(!readyAnimation()) break;
         startGame();
-
+    }
     SDL_FreeSurface(icon);
     quitSDL();
     return 0;
